@@ -19,9 +19,9 @@ public class SingerSongsActivity extends AppCompatActivity {
         final ArrayList<SongsImformation> songs = AllSongsImformation.onCreate();
         Collections.sort(songs, new SortBySongName());
 
-        TextView singerName = (TextView) this.findViewById(R.id.singer_single_name);
-        TextView singerSongs = (TextView) this.findViewById(R.id.singer_single_songs);
-        TextView singerAlbums = (TextView) this.findViewById(R.id.singer_single_album);
+        TextView singerName = this.findViewById(R.id.singer_single_name);
+        TextView singerSongs =  this.findViewById(R.id.singer_single_songs);
+        TextView singerAlbums =  this.findViewById(R.id.singer_single_album);
 
         Intent intent = getIntent();
         String singerNameString = intent.getStringExtra("singerName");
@@ -32,13 +32,14 @@ public class SingerSongsActivity extends AppCompatActivity {
         singerSongs.setText(singerSongsString);
         singerAlbums.setText(singerAlbumsString);
 
+        ArrayList<SongsImformation> songsSinger = new ArrayList<>();
         for (int i = 0; i < songs.size(); i++) {
-            if (!songs.get(i).getSinger().equals(singerNameString)) {
-                songs.remove(i);
+            if (songs.get(i).getSinger().equals(singerNameString)) {
+                songsSinger.add(songs.get(i));
             }
         }
-        ListAdapter adapter = new ListAdapter(this, songs);
-        ListView listView = (ListView) findViewById(R.id.singer_songs_list);
+        ListAdapter adapter = new ListAdapter(this, songsSinger);
+        ListView listView =  findViewById(R.id.singer_songs_list);
         listView.setAdapter(adapter);
 
     }
