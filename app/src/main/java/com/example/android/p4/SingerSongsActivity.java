@@ -3,6 +3,8 @@ package com.example.android.p4;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +34,7 @@ public class SingerSongsActivity extends AppCompatActivity {
         singerSongs.setText(singerSongsString);
         singerAlbums.setText(singerAlbumsString);
 
-        ArrayList<SongsImformation> songsSinger = new ArrayList<>();
+        final ArrayList<SongsImformation> songsSinger = new ArrayList<>();
         for (int i = 0; i < songs.size(); i++) {
             if (songs.get(i).getSinger().equals(singerNameString)) {
                 songsSinger.add(songs.get(i));
@@ -42,5 +44,28 @@ public class SingerSongsActivity extends AppCompatActivity {
         ListView listView =  findViewById(R.id.singer_songs_list);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView adapterView, View view, int position, long id) {
+
+                String songNameString = songsSinger.get(position).getNameSong();
+                String singerString = songsSinger.get(position).getSinger();
+                String albumString = songsSinger.get(position).getAlbumName();
+
+                int albumImage = songsSinger.get(position).getmAlbumImage();
+
+
+                Intent intent = new Intent(SingerSongsActivity.this, PlayingActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("songName", songNameString);
+                bundle.putString("singer", singerString);
+                bundle.putString("album", albumString);
+                bundle.putInt("image", albumImage);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -16,10 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayingActivity" />
-        <activity android:name=".SingersActivity" />
-        <activity android:name=".AllSongsActivity" />
-        <activity android:name=".SingerSongsActivity"></activity>
+        <activity
+            android:name=".PlayingActivity"
+            android:label="正在播放"
+            android:parentActivityName=".AllSongsActivity"/>
+        <activity
+            android:name=".SingersActivity"
+            android:label="所有歌手"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AllSongsActivity"
+            android:label="所有歌曲"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SingerSongsActivity"
+            android:label="歌手"
+            android:parentActivityName=".SingersActivity"></activity>
     </application>
 
 </manifest>
